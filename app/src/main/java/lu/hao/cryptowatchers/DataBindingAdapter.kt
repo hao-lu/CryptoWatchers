@@ -4,13 +4,15 @@ import android.databinding.BindingAdapter
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 
-class DataBindingAdapters {
-    @BindingAdapter( "bind:imageUrl" )
-    fun loadImage(imageView: ImageView, url: String) {
-        if (!url.equals("")) {
-            Picasso.with(imageView.getContext()).load(url).into(imageView)
 
-        }
+private val BASE_URL = "https://files.coinmarketcap.com/static/img/coins/32x32/"
+
+@BindingAdapter("bind:imageUrl")
+fun loadImage(imageView: ImageView, url: String) {
+    if (!url.equals("")) {
+        val link = BASE_URL + url + ".png"
+        Picasso.with(imageView.context).load(link).into(imageView)
+
     }
-
 }
+

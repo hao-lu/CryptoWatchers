@@ -8,7 +8,7 @@ import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 
 
-class CryptoAdapter(private val mCryptos: List<Cryptocurrency>) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
+class CoinMarketCapAdapter(private val mCryptos: List<Cryptocurrency>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val binding: ViewDataBinding
