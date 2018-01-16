@@ -5,9 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.databinding.ViewDataBinding
 import android.databinding.DataBindingUtil
+import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.LayoutInflater
+import android.widget.TextView
 
-class CoinMarketCapAdapter(private val mCryptos: List<Cryptocurrency>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
+class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
+
+    private val TAG = "CoinMarketCapAdapter"
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val binding: ViewDataBinding
@@ -30,15 +35,16 @@ class CoinMarketCapAdapter(private val mCryptos: List<Cryptocurrency>) : Recycle
     // Replace the contents of the view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.setVariable(BR.crypto, mCryptos[position])
+        val context = holder.itemView.context
+        val percentChange1h = holder.itemView.findViewById<TextView>(R.id.percent_change_1h) as TextView
+
+        percentChange1h.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
+
         holder.binding.executePendingBindings()
     }
 
     // Return the size of dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
         return mCryptos.size
-    }
-
-    fun getRecipeAt(index: Int): Cryptocurrency {
-        return mCryptos[index]
     }
 }

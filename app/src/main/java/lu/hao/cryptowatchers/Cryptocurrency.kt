@@ -23,3 +23,5 @@ data class Cryptocurrency (val id: String,
     fun formatPercent7d(percent: String): String = String.format("7d: $percent%%")
 
 }
+
+

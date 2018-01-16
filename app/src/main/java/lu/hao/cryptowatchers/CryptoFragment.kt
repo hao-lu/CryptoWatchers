@@ -3,17 +3,47 @@ package lu.hao.cryptowatchers
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.cryptos_fragment.*
 
 class CryptoFragment : Fragment() {
 
     private val TAG = "CryptoFragment"
+    private var mAdapter: CoinMarketCapAdapter = CoinMarketCapAdapter(emptyList())
+
+    private val mObservable: Observable<List<Cryptocurrency>> = CoinMarketCapApi.create()
+            .getTickerLimitObservable("10")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    private val mObserver = object : Observer<List<Cryptocurrency>> {
+        override fun onComplete() {
+            Log.d(TAG, "onComplete")
+            if (swipe_refresh.isRefreshing)
+                swipe_refresh.isRefreshing = false
+        }
+
+        override fun onError(e: Throwable) {
+            Log.d(TAG, e.message)
+        }
+
+        override fun onNext(coins: List<Cryptocurrency>) {
+            // Update the data in the adapter
+            mAdapter.mCryptos = coins
+            mAdapter.notifyDataSetChanged()
+        }
+
+        override fun onSubscribe(d: Disposable) {
+        }
+    }
 
     companion object {
         fun newInstance(): CryptoFragment {
@@ -22,27 +52,21 @@ class CryptoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view =  inflater?.inflate(R.layout.cryptos_fragment, container,false)
-
-        val activity = activity
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_view) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        val observable = CoinMarketCapApi.create().getTickerLimitObservable("10")
-        val subscription = observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { retrievedCryptos ->
-                            recyclerView.adapter = CoinMarketCapAdapter(retrievedCryptos)
-
-                        },
-                        { error ->
-                            Log.d(TAG, error.message)},
-                        {Log.d(TAG, "onCompleted")}
-                )
-
-
-        return view
+        return inflater?.inflate(R.layout.cryptos_fragment, container,false)
     }
 
+    // Accessing too soon onCreateView
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        swipe_refresh.setOnRefreshListener {
+            mObservable.subscribe(mObserver)
+        }
+
+        recycler_view.layoutManager = LinearLayoutManager(activity)
+        recycler_view.adapter = mAdapter
+
+        // API call
+        mObservable.subscribe(mObserver)
+    }
 }
