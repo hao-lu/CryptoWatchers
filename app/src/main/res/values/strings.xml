@@ -10,4 +10,6 @@
     <string name="label_1h">1h: </string>
     <string name="percent_symbol">%</string>
 
+    <string name="action_search">Search currencies</string>
+
 </resources>
