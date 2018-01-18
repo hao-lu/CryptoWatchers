@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="crypto"
-            type="lu.hao.cryptowatchers.Cryptocurrency"/>
+            type="lu.hao.cryptowatchers.Cryptocurrency" />
     </data>
 
     <LinearLayout
@@ -16,11 +17,11 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginTop="4dp"
+            app:cardCornerRadius="8dp">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -48,11 +49,19 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/market_cap" />
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/symbol"/>
+
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:text="@{crypto.name}"
                     app:layout_constraintStart_toEndOf="@+id/symbol"
                     app:layout_constraintTop_toTopOf="@+id/symbol"
@@ -92,46 +101,107 @@
                     tools:layout_editor_absoluteY="16dp"
                     tools:text="$15,246.10" />
 
-                <TextView
-                    android:id="@+id/percent_change_1h"
+                <LinearLayout
+                    android:id="@+id/percent_1h"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="@{crypto.formatPercent1h(crypto.percentChange1h)}"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/percent_change_24h"
+                    app:layout_constraintEnd_toStartOf="@+id/percent_24h"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/icon"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    tools:text="1h: 0.6%" />
+                    app:layout_constraintHorizontal_chainStyle="spread_inside">
 
-                <TextView
-                    android:id="@+id/percent_change_24h"
+                    <TextView
+                        android:id="@+id/label_1h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_1h" />
+
+                    <TextView
+                        android:id="@+id/percent_change_1h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="2dp"
+                        android:text="@{String.valueOf(crypto.percentChange1h)}"
+                        tools:text="0.6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/percent_symbol"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/percent_24h"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="@{crypto.formatPercent24h(crypto.percentChange24h)}"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/percent_change_7d"
+                    app:layout_constraintEnd_toStartOf="@+id/percent_7d"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/percent_change_1h"
-                    app:layout_constraintTop_toBottomOf="@+id/icon"
-                    app:layout_constraintVertical_bias="0.058"
-                    tools:text="24h: -3.05%" />
+                    app:layout_constraintStart_toEndOf="@+id/percent_1h"
+                    app:layout_constraintTop_toBottomOf="@+id/icon">
 
-                <TextView
-                    android:id="@+id/percent_change_7d"
+                    <TextView
+                        android:id="@+id/label_24h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_24h" />
+
+                    <TextView
+                        android:id="@+id/percent_change_24h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="2dp"
+                        android:text="@{String.valueOf(crypto.percentChange24h)}"
+                        tools:text="-3.05" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/percent_symbol"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/percent_7d"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="@{crypto.formatPercent7d(crypto.percentChange7d)}"
-                    app:layout_constraintTop_toBottomOf="@+id/icon"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/percent_change_24h"
-                    tools:layout_editor_absoluteY="72dp"
-                    tools:text="7d: -14.64%" />
+                    app:layout_constraintStart_toEndOf="@id/percent_24h"
+                    app:layout_constraintTop_toBottomOf="@+id/icon">
+
+                    <TextView
+                        android:id="@+id/label_7d"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_7d" />
+
+                    <TextView
+                        android:id="@+id/percent_change_7d"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="2dp"
+                        android:text="@{String.valueOf(crypto.percentChange7d)}"
+                        tools:text="-14.64" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/percent_symbol"/>
+
+                </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>

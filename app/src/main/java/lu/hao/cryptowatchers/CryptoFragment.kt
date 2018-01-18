@@ -41,8 +41,7 @@ class CryptoFragment : Fragment() {
             mAdapter.notifyDataSetChanged()
         }
 
-        override fun onSubscribe(d: Disposable) {
-        }
+        override fun onSubscribe(d: Disposable) {}
     }
 
     companion object {
@@ -67,6 +66,7 @@ class CryptoFragment : Fragment() {
         recycler_view.adapter = mAdapter
 
         // API call
+        swipe_refresh.isRefreshing = true
         mObservable.subscribe(mObserver)
     }
 }

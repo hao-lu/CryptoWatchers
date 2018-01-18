@@ -1,5 +1,6 @@
 package lu.hao.cryptowatchers
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Ad
             // Bind row view
             binding = DataBindingUtil.bind(v)
         }
-
     }
 
     // Create new view (invoked by the layout manager)
@@ -36,9 +36,11 @@ class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.setVariable(BR.crypto, mCryptos[position])
         val context = holder.itemView.context
-        val percentChange1h = holder.itemView.findViewById<TextView>(R.id.percent_change_1h) as TextView
 
-        percentChange1h.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
+        // Change the text color of percent based on positive or negative
+        changePercentChangeColor(R.id.percent_change_1h, context, mCryptos[position].percentChange1h, holder)
+        changePercentChangeColor(R.id.percent_change_24h, context, mCryptos[position].percentChange24h, holder)
+        changePercentChangeColor(R.id.percent_change_7d, context, mCryptos[position].percentChange7d, holder)
 
         holder.binding.executePendingBindings()
     }
@@ -46,5 +48,11 @@ class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Ad
     // Return the size of dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
         return mCryptos.size
+    }
+
+    private fun changePercentChangeColor(id: Int, context: Context, percent: Double, holder: ViewHolder) {
+        val percentage = holder.itemView.findViewById<TextView>(id) as TextView
+        if (percent > 0) percentage.setTextColor(ContextCompat.getColor(context, R.color.colorUp))
+        else percentage.setTextColor(ContextCompat.getColor(context, R.color.colorDown))
     }
 }

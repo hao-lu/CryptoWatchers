@@ -5,4 +5,9 @@
 
     <string name="percent_1h_format">1h: %s\%%</string>
 
+    <string name="label_7d">7d: </string>
+    <string name="label_24h">24h: </string>
+    <string name="label_1h">1h: </string>
+    <string name="percent_symbol">%</string>
+
 </resources>
