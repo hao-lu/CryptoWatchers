@@ -20,7 +20,7 @@ class CryptoFragment : Fragment() {
     private var mAdapter: CoinMarketCapAdapter = CoinMarketCapAdapter(emptyList())
 
     private val mObservable: Observable<List<Cryptocurrency>> = CoinMarketCapApi.create()
-            .getTickerLimitObservable("10")
+            .getTickerLimitObservable("25")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

@@ -1,6 +1,7 @@
 package lu.hao.cryptowatchers
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,12 @@ class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Ad
         changePercentChangeColor(R.id.percent_change_1h, context, mCryptos[position].percentChange1h, holder)
         changePercentChangeColor(R.id.percent_change_24h, context, mCryptos[position].percentChange24h, holder)
         changePercentChangeColor(R.id.percent_change_7d, context, mCryptos[position].percentChange7d, holder)
+
+        holder.itemView.setOnClickListener( {
+            val intent = Intent(context, CoinDetailsActivity::class.java)
+            intent.putExtra("Cryptocurrency", mCryptos[position])
+            context.startActivity(intent)
+        } )
 
         holder.binding.executePendingBindings()
     }
