@@ -30,19 +30,6 @@ class SearchableActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    private val mTextChangeObserver = object : Observer<String> {
-        override fun onComplete() {}
-
-        override fun onError(e: Throwable) { Log.d(TAG, e.message) }
-
-        override fun onNext(s: String) {
-            // Update the data in the adapter
-            Log.d(TAG, s)
-        }
-
-        override fun onSubscribe(d: Disposable) {}
-    }
-
     private val mTextChangeObservable: Observable<String> = Observable.create {
         emitter ->
         search_edit_text.addTextChangedListener(object: TextWatcher {
@@ -90,11 +77,10 @@ class SearchableActivity : AppCompatActivity() {
                         { Log.d(TAG, "onComplete") }
                 )
 
+        // Set onClickListener for back button
         back_button.setOnClickListener({ onBackPressed() })
-
+        // Set onClickListener for clear button
         clear_button.setOnClickListener({ search_edit_text.text.clear() })
-
-
 
         search_results_list.layoutManager = LinearLayoutManager(this)
         search_results_list.adapter = mAdapter
@@ -102,20 +88,6 @@ class SearchableActivity : AppCompatActivity() {
                 LinearLayoutManager(this).orientation)
         search_results_list.addItemDecoration(dividerItemDecoration)
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_search, menu)
-//        val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
-//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-//        // Remove the extra padding between the SearchView and back arrow
-//        val searchEditFrame = searchView.findViewById<LinearLayout>(R.id.search_edit_frame) as LinearLayout
-//        (searchEditFrame.layoutParams as LinearLayout.LayoutParams).leftMargin = 0
-//
-//        searchView.onActionViewExpanded()
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onSupportNavigateUp(): Boolean {

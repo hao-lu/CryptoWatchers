@@ -3,7 +3,6 @@ package lu.hao.cryptowatchers
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 import java.text.DecimalFormat
 
 data class Cryptocurrency(val id: String,

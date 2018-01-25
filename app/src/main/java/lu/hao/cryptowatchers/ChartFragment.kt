@@ -1,7 +1,6 @@
 package lu.hao.cryptowatchers
 
 import android.support.v4.app.Fragment
-import android.widget.TextView
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
@@ -9,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.adapter.rxjava2.Result.response
 import com.google.gson.GsonBuilder
-
-
 
 class ChartFragment : Fragment() {
 

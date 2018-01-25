@@ -18,7 +18,6 @@ class CoinDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_coin_details)
         setSupportActionBar(toolbar)
 
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
         // Enable and show back button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -26,10 +25,6 @@ class CoinDetailsActivity : AppCompatActivity() {
         val coin = intent.extras.getParcelable<Cryptocurrency>("Cryptocurrency")
         Log.d(TAG, coin.name)
         supportActionBar?.title = "${coin.symbol} | ${coin.name} "
-
-//        tab_layout.addTab(tab_layout.newTab().setText("1H"))
-//        tab_layout.addTab(tab_layout.newTab().setText("24H"))
-//        tab_layout.addTab(tab_layout.newTab().setText("7D"))
 
         mViewPager = container
         mChartPagerAdapter = ChartPagerAdapter(supportFragmentManager, coin.symbol)
