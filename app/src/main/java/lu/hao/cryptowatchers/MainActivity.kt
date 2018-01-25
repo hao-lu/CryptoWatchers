@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.activity_base_content, CryptoFragment.newInstance(), "cryptoFragment")
+                    .add(R.id.activity_base_content, CoinListFragment.newInstance(), "coinListFragment")
                     .commit()
         }
 

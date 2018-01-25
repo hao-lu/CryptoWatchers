@@ -5,14 +5,14 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.text.DecimalFormat
 
-data class Cryptocurrency(val id: String,
-                          val name: String,
-                          val symbol: String,
-                          @SerializedName("price_usd") val priceUsd: Double,
-                          @SerializedName("market_cap_usd") val marketCap: Double,
-                          @SerializedName("percent_change_1h") val percentChange1h: Double,
-                          @SerializedName("percent_change_24h") val percentChange24h: Double,
-                          @SerializedName("percent_change_7d") val percentChange7d: Double) : Parcelable {
+data class Coin(val id: String,
+                val name: String,
+                val symbol: String,
+                @SerializedName("price_usd") val priceUsd: Double,
+                @SerializedName("market_cap_usd") val marketCap: Double,
+                @SerializedName("percent_change_1h") val percentChange1h: Double,
+                @SerializedName("percent_change_24h") val percentChange24h: Double,
+                @SerializedName("percent_change_7d") val percentChange7d: Double) : Parcelable {
     fun formatPrice(price: Double): String = DecimalFormat("$0.00").format(price)
 
     fun formatMarketCap(marketCap: Double): String = String.format("Market Cap: " + DecimalFormat("$000,000").format(marketCap))
@@ -43,9 +43,9 @@ data class Cryptocurrency(val id: String,
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<Cryptocurrency> = object : Parcelable.Creator<Cryptocurrency> {
-            override fun createFromParcel(source: Parcel): Cryptocurrency = Cryptocurrency(source)
-            override fun newArray(size: Int): Array<Cryptocurrency?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<Coin> = object : Parcelable.Creator<Coin> {
+            override fun createFromParcel(source: Parcel): Coin = Coin(source)
+            override fun newArray(size: Int): Array<Coin?> = arrayOfNulls(size)
         }
     }
 }

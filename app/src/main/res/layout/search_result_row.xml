@@ -6,7 +6,7 @@
     <data>
         <variable
             name="crypto"
-            type="lu.hao.cryptowatchers.Cryptocurrency" />
+            type="lu.hao.cryptowatchers.Coin" />
     </data>
 
 

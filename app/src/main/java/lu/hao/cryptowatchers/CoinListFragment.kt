@@ -14,17 +14,17 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cryptos.*
 
-class CryptoFragment : Fragment() {
+class CoinListFragment : Fragment() {
 
-    private val TAG = "CryptoFragment"
+    private val TAG = "CoinListFragment"
     private var mAdapter: CoinMarketCapAdapter = CoinMarketCapAdapter(emptyList())
 
-    private val mObservable: Observable<List<Cryptocurrency>> = CoinMarketCapApi.create()
+    private val mObservable: Observable<List<Coin>> = CoinMarketCapApi.create()
             .getTickerLimitObservable("25")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    private val mObserver = object : Observer<List<Cryptocurrency>> {
+    private val mObserver = object : Observer<List<Coin>> {
         override fun onComplete() {
             Log.d(TAG, "onComplete")
             if (swipe_refresh.isRefreshing)
@@ -35,7 +35,7 @@ class CryptoFragment : Fragment() {
             Log.d(TAG, e.message)
         }
 
-        override fun onNext(coins: List<Cryptocurrency>) {
+        override fun onNext(coins: List<Coin>) {
             // Update the data in the adapter
             mAdapter.mCryptos = coins
             mAdapter.notifyDataSetChanged()
@@ -45,8 +45,8 @@ class CryptoFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): CryptoFragment {
-            return CryptoFragment()
+        fun newInstance(): CoinListFragment {
+            return CoinListFragment()
         }
     }
 

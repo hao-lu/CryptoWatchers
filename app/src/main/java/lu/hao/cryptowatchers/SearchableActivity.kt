@@ -6,13 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Menu
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_searchable.*
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import android.support.v7.widget.DividerItemDecoration
@@ -20,12 +17,12 @@ import android.support.v7.widget.DividerItemDecoration
 class SearchableActivity : AppCompatActivity() {
 
     private val TAG = "SearchableActivity"
-    private var mCryptocurrencies: List<Cryptocurrency>? = null
+    private var mCryptocurrencies: List<Coin>? = null
 
     private var mAdapter: SearchResultsAdapter = SearchResultsAdapter(emptyList())
 
 
-    private val mCoinMarketObservable: Observable<List<Cryptocurrency>> = CoinMarketCapApi.create()
+    private val mCoinMarketObservable: Observable<List<Coin>> = CoinMarketCapApi.create()
             .getTickerLimitObservable("0")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -95,7 +92,7 @@ class SearchableActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    private fun search(s: String): List<Cryptocurrency> {
+    private fun search(s: String): List<Coin> {
         if (s == "") return emptyList()
          return mCryptocurrencies!!.filter { it.name.toLowerCase().startsWith(s.toLowerCase())
                  || it.symbol.toLowerCase().startsWith(s.toLowerCase()) }

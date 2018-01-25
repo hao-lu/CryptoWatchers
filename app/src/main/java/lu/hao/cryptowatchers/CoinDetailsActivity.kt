@@ -22,7 +22,7 @@ class CoinDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        val coin = intent.extras.getParcelable<Cryptocurrency>("Cryptocurrency")
+        val coin = intent.extras.getParcelable<Coin>("Coin")
         Log.d(TAG, coin.name)
         supportActionBar?.title = "${coin.symbol} | ${coin.name} "
 

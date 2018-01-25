@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.databinding.ViewDataBinding
 import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 
-class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
+class CoinMarketCapAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
 
     private val TAG = "CoinMarketCapAdapter"
 
@@ -45,7 +44,7 @@ class CoinMarketCapAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Ad
 
         holder.itemView.setOnClickListener( {
             val intent = Intent(context, CoinDetailsActivity::class.java)
-            intent.putExtra("Cryptocurrency", mCryptos[position])
+            intent.putExtra("Coin", mCryptos[position])
             context.startActivity(intent)
         } )
 

@@ -9,9 +9,9 @@ import retrofit2.http.Query
 
 interface CoinMarketCapApi {
 
-    // Using Call<List<Cryptocurrency>> rather than Call<CryptoResponse> because API is returning a JSONArray rather than JSONObject
+    // Using Call<List<Coin>> rather than Call<CryptoResponse> because API is returning a JSONArray rather than JSONObject
     @GET("v1/ticker/")
-    fun getTickerLimitObservable(@Query("limit") limit: String): Observable<List<Cryptocurrency>>
+    fun getTickerLimitObservable(@Query("limit") limit: String): Observable<List<Coin>>
 
     companion object Factory {
         fun create(): CoinMarketCapApi {

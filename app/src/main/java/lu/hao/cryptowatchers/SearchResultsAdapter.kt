@@ -7,7 +7,7 @@ import android.databinding.ViewDataBinding
 import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 
-class SearchResultsAdapter(var mCryptos: List<Cryptocurrency>) : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
+class SearchResultsAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
 
     private val TAG = "SearchResultsAdapter"
 
