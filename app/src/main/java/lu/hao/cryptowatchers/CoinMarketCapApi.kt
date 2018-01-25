@@ -17,6 +17,7 @@ interface CoinMarketCapApi {
         fun create(): CoinMarketCapApi {
             val retrofit = Retrofit.Builder()
                     .baseUrl("https://api.coinmarketcap.com/")
+                    // Add because it is type Observable, need an adapter for the data
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()

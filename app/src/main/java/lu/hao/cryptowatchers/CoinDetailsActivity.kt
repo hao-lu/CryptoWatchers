@@ -1,6 +1,7 @@
 package lu.hao.cryptowatchers
 
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_coin_details.*
@@ -8,6 +9,9 @@ import kotlinx.android.synthetic.main.activity_coin_details.*
 class CoinDetailsActivity : AppCompatActivity() {
 
     private val TAG = "CoinDetailsActivity"
+
+    private lateinit var mChartPagerAdapter: ChartPagerAdapter
+    private lateinit var mViewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,16 @@ class CoinDetailsActivity : AppCompatActivity() {
         val coin = intent.extras.getParcelable<Cryptocurrency>("Cryptocurrency")
         Log.d(TAG, coin.name)
         supportActionBar?.title = "${coin.symbol} | ${coin.name} "
+
+//        tab_layout.addTab(tab_layout.newTab().setText("1H"))
+//        tab_layout.addTab(tab_layout.newTab().setText("24H"))
+//        tab_layout.addTab(tab_layout.newTab().setText("7D"))
+
+        mViewPager = container
+        mChartPagerAdapter = ChartPagerAdapter(supportFragmentManager, coin.symbol)
+        mViewPager.adapter = mChartPagerAdapter
+
+        tab_layout.setupWithViewPager(mViewPager)
 
     }
 

@@ -12,7 +12,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.cryptos_fragment.*
+import kotlinx.android.synthetic.main.fragment_cryptos.*
 
 class CryptoFragment : Fragment() {
 
@@ -51,7 +51,7 @@ class CryptoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.cryptos_fragment, container,false)
+        return inflater?.inflate(R.layout.fragment_cryptos, container,false)
     }
 
     // Accessing too soon onCreateView
