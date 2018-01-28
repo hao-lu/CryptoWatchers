@@ -1,6 +1,7 @@
 package lu.hao.cryptowatchers
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -23,15 +24,67 @@ class CoinDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val coin = intent.extras.getParcelable<Coin>("Coin")
-        Log.d(TAG, coin.name)
+        Log.d(TAG, "" + coin.priceUsd)
         supportActionBar?.title = "${coin.symbol} | ${coin.name} "
 
-        mViewPager = container
-        mChartPagerAdapter = ChartPagerAdapter(supportFragmentManager, coin.symbol)
-        mViewPager.adapter = mChartPagerAdapter
+//        mViewPager = container
+//        mChartPagerAdapter = ChartPagerAdapter(supportFragmentManager, coin.symbol)
+//        mViewPager.adapter = mChartPagerAdapter
+//
+//        tab_layout.setupWithViewPager(mViewPager)
 
-        tab_layout.setupWithViewPager(mViewPager)
+        tab_layout.addTab(tab_layout.newTab().setText("24H"))
+        tab_layout.addTab(tab_layout.newTab().setText("7D"))
+        tab_layout.addTab(tab_layout.newTab().setText("1M"))
+        tab_layout.addTab(tab_layout.newTab().setText("3M"))
+        tab_layout.addTab(tab_layout.newTab().setText("6M"))
+        tab_layout.addTab(tab_layout.newTab().setText("1Y"))
 
+        // Initialized data in chart fragment
+        val chartFragment = ChartFragment()
+        val args = Bundle()
+        args.putString("period", "1day")
+        args.putParcelable("coin", coin)
+        chartFragment.arguments = args
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.chart_container, chartFragment, "chartFragment")
+                .commit()
+
+        // Coin info fragment
+        val coinInfoFragment = CoinInfoFragment()
+        coinInfoFragment.arguments = args
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.info_container, coinInfoFragment, "coinInfoFragment")
+                .commit()
+
+        tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val fragment = ChartFragment()
+
+                when (tab.position) {
+                    0 -> args.putString("period", "1day")
+                    1 -> args.putString("period", "7day")
+                    2 -> args.putString("period", "30day")
+                    3 -> args.putString("period", "90day")
+                    4 -> args.putString("period", "180day")
+                    else -> {
+                        args.putString("period", "365day")
+                    }
+                }
+                fragment.arguments = args
+
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.chart_container, fragment, "coinListFragment")
+                        .commit()
+            }
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -10,8 +10,8 @@ import retrofit2.http.Path
 interface CoinCapApi {
 
     // Need two path annotations for 1day/BTC
-    @GET("history/{path}/{path2}")
-    fun getHistoryObservable(@Path("path") path: String, @Path("path2") path2: String): Observable<CoinHistory>
+    @GET("history/{period}/{symbol}")
+    fun getHistoryObservable(@Path("period") period: String, @Path("symbol") symbol: String): Observable<CoinHistory>
 
     companion object Factory {
         fun create(): CoinCapApi {
