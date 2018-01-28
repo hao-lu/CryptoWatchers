@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/scrub_y_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        tools:text="$10,870.50"/>
+
+    <TextView
+        android:id="@+id/scrub_x_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="1/26/18 1:05 PM"/>
+
+    <com.robinhood.spark.SparkView
+        android:id="@+id/spark_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:spark_lineColor="@color/colorAccent"
+        app:spark_scrubEnabled="true"
+        app:spark_animateChanges="true"/>
+
+</LinearLayout>
+
