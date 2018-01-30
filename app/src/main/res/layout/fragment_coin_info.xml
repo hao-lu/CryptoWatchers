@@ -9,106 +9,156 @@
             type="lu.hao.cryptowatchers.Coin" />
     </data>
 
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/label_market_cap"
             style="@style/LabelCoinInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MARKET CAP"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/label_market_cap"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintRight_toLeftOf="@id/market_cap"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/label_volume"/>
 
         <TextView
             android:id="@+id/market_cap"
             style="@style/CoinInfoText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@{coin.formatVolume(coin.marketCap)}"
-            app:layout_constraintEnd_toStartOf="@+id/label_volume"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_market_cap"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/label_market_cap"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/volume"
             tools:text="$186,830,039,669" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"
+            app:layout_constraintTop_toBottomOf="@id/market_cap"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
 
         <TextView
             android:id="@+id/label_volume"
             style="@style/LabelCoinInfoText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="VOLUME (24H)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/market_cap"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="0dp"
+            android:text="@string/label_volume_24h"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/label_circulating"
+            app:layout_constraintTop_toBottomOf="@id/label_market_cap"
+            app:layout_constraintRight_toLeftOf="@id/volume"/>
 
         <TextView
             android:id="@+id/volume"
             style="@style/CoinInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@{coin.formatVolume(coin.volume)}"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@id/label_volume"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintLeft_toRightOf="@id/label_volume"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_volume"
+            app:layout_constraintTop_toBottomOf="@id/market_cap"
+            app:layout_constraintBottom_toTopOf="@id/circulating"
             tools:text="$9,626,700,000" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"
+            app:layout_constraintTop_toBottomOf="@id/label_volume"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
             android:id="@+id/label_circulating"
             style="@style/LabelCoinInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="CIRCULATING SUPPLY"
-            app:layout_constraintLeft_toLeftOf="@id/label_market_cap"
-            app:layout_constraintTop_toBottomOf="@id/market_cap"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="54dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/label_circulating_supply"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/label_max_supply"
+            app:layout_constraintTop_toBottomOf="@id/label_volume"
+            app:layout_constraintRight_toLeftOf="@id/circulating" />
 
         <TextView
             android:id="@+id/circulating"
             style="@style/CoinInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@{coin.formatSupply(coin.availableSupply)}"
-            app:layout_constraintLeft_toLeftOf="@id/label_circulating"
-            app:layout_constraintTop_toBottomOf="@id/label_circulating"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="129dp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintLeft_toRightOf="@id/label_circulating"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/volume"
+            app:layout_constraintBottom_toTopOf="@id/max_supply"
             tools:text="16,828,700" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDBDBD"
+            app:layout_constraintTop_toBottomOf="@id/label_circulating"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
             android:id="@+id/label_max_supply"
             style="@style/LabelCoinInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TOTAL SUPPLY"
-            app:layout_constraintLeft_toLeftOf="@id/label_volume"
-            app:layout_constraintTop_toBottomOf="@id/volume"
-            tools:layout_editor_absoluteX="230dp"
-            tools:layout_editor_absoluteY="113dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/label_total_supply"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_circulating"
+            app:layout_constraintRight_toLeftOf="@id/max_supply"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/max_supply"
             style="@style/CoinInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:text="@{coin.formatTotalSupply(coin.maxSupply)}"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@id/label_max_supply"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeMaxTextSize="20sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintLeft_toRightOf="@id/label_max_supply"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_max_supply"
+            app:layout_constraintTop_toBottomOf="@id/circulating"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="21,000,000" />
-
 
     </android.support.constraint.ConstraintLayout>
 

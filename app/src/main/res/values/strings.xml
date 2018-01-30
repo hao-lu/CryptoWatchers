@@ -5,11 +5,18 @@
 
     <string name="percent_1h_format">1h: %s\%%</string>
 
+    <!--crypto info row labels-->
     <string name="label_7d">7d: </string>
     <string name="label_24h">24h: </string>
     <string name="label_1h">1h: </string>
     <string name="percent_symbol">%</string>
 
     <string name="action_search">Search currencies</string>
+
+    <!--coin info  labels-->
+    <string name="label_market_cap">MARKET CAP</string>
+    <string name="label_volume_24h">VOLUME (24H)</string>
+    <string name="label_circulating_supply">CIRCULATING SUPPLY</string>
+    <string name="label_total_supply">TOTAL SUPPLY</string>
 
 </resources>

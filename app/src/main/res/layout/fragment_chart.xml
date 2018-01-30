@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textAlignment="center"
+        android:paddingTop="8dp"
         tools:text="$10,870.50"/>
 
     <TextView
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:paddingBottom="8dp"
         tools:text="1/26/18 1:05 PM"/>
 
     <com.robinhood.spark.SparkView
