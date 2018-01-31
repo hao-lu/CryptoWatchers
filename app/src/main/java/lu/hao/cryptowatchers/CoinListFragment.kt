@@ -1,5 +1,6 @@
 package lu.hao.cryptowatchers
 
+import android.graphics.Rect
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +14,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cryptos.*
+import android.support.v7.widget.RecyclerView
+import android.R.attr.spacing
+
+
+
+
 
 class CoinListFragment : Fragment() {
 
@@ -65,8 +72,30 @@ class CoinListFragment : Fragment() {
         recycler_view.layoutManager = LinearLayoutManager(activity)
         recycler_view.adapter = mAdapter
 
+        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing)
+        Log.d(TAG, "$spacingInPixels")
+        recycler_view.addItemDecoration(SpacesItemDecoration(spacingInPixels))
+
         // API call
         swipe_refresh.isRefreshing = true
         mObservable.subscribe(mObserver)
+    }
+
+    inner class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+
+        override fun getItemOffsets(outRect: Rect, view: View,
+                           parent: RecyclerView, state: RecyclerView.State) {
+            outRect.left = space
+            outRect.right = space
+            outRect.bottom = space
+
+            // Add top margin only for the first item to avoid double space between items
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.top = space
+            } else {
+                // Remove the extra spacing from attribute: cardUseCompatPadding
+                outRect.top = -resources.getDimensionPixelSize(R.dimen.spacing)
+            }
+        }
     }
 }

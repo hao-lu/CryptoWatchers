@@ -17,7 +17,7 @@ data class Coin(val id: String,
                 @SerializedName("percent_change_24h") val percentChange24h: Double,
                 @SerializedName("percent_change_7d") val percentChange7d: Double) : Parcelable {
 
-    fun formatPrice(price: Double): String = DecimalFormat("$###,###.00").format(price)
+    fun formatPrice(price: Double): String = if (price > 0.01) DecimalFormat("$###,##0.00").format(price) else DecimalFormat("$0.########").format(price)
 
     fun formatVolume(price: Double): String = DecimalFormat("$###,###").format(price)
 
@@ -26,7 +26,7 @@ data class Coin(val id: String,
     fun formatSupply(supply: Double): String = DecimalFormat("###,###").format(supply)
 
     // Some coins don't have a finite supply so return the available supply
-    fun formatTotalSupply(supply: Double) = if (supply == 0.0) formatSupply(this.availableSupply) else formatSupply(supply)
+    fun formatTotalSupply(supply: Double): String = if (supply == 0.0) formatSupply(this.availableSupply) else formatSupply(supply)
 
     constructor(source: Parcel) : this(
             source.readString(),

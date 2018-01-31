@@ -37,6 +37,23 @@ class CoinMarketCapAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<Coin
         holder.binding.setVariable(BR.crypto, mCryptos[position])
         val context = holder.itemView.context
 
+//        val cardView = holder.itemView.findViewById<CardView>(R.id.card_info_row)
+//        val params = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        )
+//        val spacingInPixels = context.resources.getDimensionPixelSize(R.dimen.spacing)
+//        if (position == 0) {
+//
+//            params.setMargins(spacingInPixels, spacingInPixels, spacingInPixels, spacingInPixels)
+//
+//        }
+//        else {
+//            params.setMargins(spacingInPixels, 0, spacingInPixels, spacingInPixels)
+//        }
+//
+//        cardView.layoutParams = params
+
         // Change the text color of percent based on positive or negative
         changePercentChangeColor(R.id.percent_change_1h, context, mCryptos[position].percentChange1h, holder)
         changePercentChangeColor(R.id.percent_change_24h, context, mCryptos[position].percentChange24h, holder)
