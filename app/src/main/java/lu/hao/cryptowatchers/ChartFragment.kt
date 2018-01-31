@@ -2,6 +2,7 @@ package lu.hao.cryptowatchers
 
 import android.support.v4.app.Fragment
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -12,7 +13,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.robinhood.spark.SparkAdapter
 import com.robinhood.spark.SparkView
-import kotlinx.android.synthetic.main.activity_coin_details.*
 import kotlinx.android.synthetic.main.fragment_chart.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -36,25 +36,30 @@ class ChartFragment : Fragment() {
                 { history ->
                     spark_view.adapter = CoinHistoryAdapter(history)
 
+                    // Turn off progress bar and show chart fragment
                     activity.findViewById<ProgressBar>(R.id.chart_progress_bar).visibility = ProgressBar.GONE
                     activity.findViewById<FrameLayout>(R.id.chart_container).visibility = FrameLayout.VISIBLE
 
-                    spark_view.fillType = SparkView.FillType.DOWN
-                    // Initially set the price and percentChange
-                    scrub_y_data.text = coin.formatPrice(coin.priceUsd)
-
+                    // Calculate the change
                     val oldPrice = spark_view.adapter.getY(spark_view.adapter.count - 1)
                     val latestPrice = spark_view.adapter.getY(0)
                     val difference = Math.abs(oldPrice - latestPrice).toDouble()
-                    val change = "${coin.percentChange24h}% (${coin.formatPrice(difference)})"
-                    scrub_x_data.text = change
-//                    scrub_x_data.text = coin.percentChange1h.toString()
+                    val percentChange = ((oldPrice - latestPrice) / oldPrice) * 100
+                    val formatChange = DecimalFormat("#0.00'%'").format(percentChange)
+                    val change = "$formatChange (${coin.formatPrice(difference)})"
 
+                    if (percentChange < 0) scrub_x_data.setTextColor(ContextCompat.getColor(context, R.color.colorDown))
+                    else scrub_x_data.setTextColor(ContextCompat.getColor(context, R.color.colorUp))
+
+                    // Initially set the price and percentChange
+                    scrub_y_data.text = coin.formatPrice(coin.priceUsd)
+                    scrub_x_data.text = change
+
+                    spark_view.fillType = SparkView.FillType.DOWN
                     spark_view.setScrubListener(
                             { value ->
                         if (value == null) {
                             scrub_y_data.text = coin.formatPrice(coin.priceUsd)
-//                            scrub_x_data.text = coin.percentChange1h.toString()
                             scrub_x_data.text = change
                         } else {
                             val pair: Pair<Float, Float> = value as Pair<Float, Float>
@@ -73,35 +78,47 @@ class ChartFragment : Fragment() {
     }
 
     private class CoinHistoryAdapter(history: CoinHistory) : SparkAdapter() {
-        private val xData: FloatArray
-        private val yData: FloatArray
-        private var marketCapHistory: List<List<Float>>
+//        private val xData: FloatArray
+//        private val yData: FloatArray
+        private var mHistory: List<List<Float>>
+        private var mData = mutableListOf<Pair<Float, Float>>()
         private val TAG = "CoinHistoryAdapter"
 
         init {
-            xData = FloatArray(history.price!!.size)
-            yData = FloatArray(history.price!!.size)
-            marketCapHistory = history.price!!
-            fill()
+//            xData = FloatArray(history.price!!.size)
+//            yData = FloatArray(history.price!!.size)
+            mHistory = history.price!!
+
+            for (i in 0 until history.price!!.size) {
+                val p = Pair(history.price!![i][0], history.price!![i][1])
+                mData.add(p)
+            }
+
+//            (0 until history.price!!.size).forEach { i ->
+//                val p = Pair(history.price!![i][0], history.price!![i][1])
+//                mData.add(p)
+//            }
         }
 
-        private fun fill() {
-            for (i in 0 until marketCapHistory.size) {
-                xData[i] = marketCapHistory[i][0]
-                yData[i] = marketCapHistory[i][1]
-            }
-        }
+//        private fun fill() {
+//            for (i in 0 until mHistory.size) {
+//                xData[i] = mHistory[i][0]
+//                yData[i] = mHistory[i][1]
+//            }
+//        }
 
         override fun getCount(): Int {
-            return yData.size
+            return mData.size
         }
 
         override fun getItem(index: Int): Any {
-            return Pair(xData[index], yData[index])
+//            return Pair(xData[index], yData[index])
+            return mData[index]
         }
 
         override fun getY(index: Int): Float {
-            return yData[index]
+//            return yData[index]
+            return mData[index].second
         }
     }
 
