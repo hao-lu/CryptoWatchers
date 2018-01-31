@@ -15,11 +15,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_cryptos.*
 import android.support.v7.widget.RecyclerView
-import android.R.attr.spacing
-
-
-
-
 
 class CoinListFragment : Fragment() {
 
@@ -91,10 +86,10 @@ class CoinListFragment : Fragment() {
 
             // Add top margin only for the first item to avoid double space between items
             if (parent.getChildLayoutPosition(view) == 0) {
-                outRect.top = space
+                outRect.top = space - 4
             } else {
                 // Remove the extra spacing from attribute: cardUseCompatPadding
-                outRect.top = -resources.getDimensionPixelSize(R.dimen.spacing)
+                outRect.top = -space
             }
         }
     }

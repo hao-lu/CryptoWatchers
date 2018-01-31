@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
                     .add(R.id.activity_base_content, CoinListFragment.newInstance(), "coinListFragment")
                     .commit()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

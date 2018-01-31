@@ -24,6 +24,5 @@ interface CoinMarketCapApi {
 
             return retrofit.create(CoinMarketCapApi::class.java)
         }
-
     }
 }

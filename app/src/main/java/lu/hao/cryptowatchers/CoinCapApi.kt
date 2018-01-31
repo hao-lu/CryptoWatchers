@@ -22,7 +22,5 @@ interface CoinCapApi {
                     .build()
             return retrofit.create(CoinCapApi::class.java)
         }
-
-
     }
 }
