@@ -1,5 +1,6 @@
 package lu.hao.cryptowatchers
 
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,12 @@ class SearchResultsAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<Sear
     // Replace the contents of the view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.setVariable(BR.crypto, mCryptos[position])
+        val context = holder.itemView.context
+        holder.itemView.setOnClickListener( {
+            val intent = Intent(context, CoinDetailsActivity::class.java)
+            intent.putExtra("Coin", mCryptos[position])
+            context.startActivity(intent)
+        } )
         holder.binding.executePendingBindings()
     }
 
