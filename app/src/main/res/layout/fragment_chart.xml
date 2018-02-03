@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@color/colorContentBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
+        style="@style/CoinInfoRowText"
         android:id="@+id/scrub_y_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +18,7 @@
         tools:text="$10,870.50"/>
 
     <TextView
+        android:textColor="@color/colorSecondary"
         android:id="@+id/scrub_x_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

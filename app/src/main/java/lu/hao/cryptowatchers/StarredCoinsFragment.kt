@@ -15,7 +15,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 import android.support.v7.widget.RecyclerView
-import io.reactivex.ObservableOnSubscribe
 
 class StarredCoinsFragment : Fragment() {
 
@@ -92,6 +91,7 @@ class StarredCoinsFragment : Fragment() {
 
         swipe_refresh.setOnRefreshListener {
 //            subscribeObservableList(observableWhenAll)
+            mAdapter.mCoins = mutableListOf()
             for (obs in listOfObservables) {
                 getCoinInfoObserver(obs)
             }
@@ -120,7 +120,6 @@ class StarredCoinsFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-
                             mAdapter.mCoins.add(it[0])
                             mAdapter.notifyDataSetChanged()
                         },

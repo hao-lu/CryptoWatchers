@@ -30,6 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/CoinInfoRowText"
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
                 tools:text="Bitcoin" />
 
             <TextView
+                style="@style/CoinInfoRowText"
                 android:id="@+id/symbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,6 +58,7 @@
                 tools:text="BTC" />
 
             <TextView
+                style="@style/CoinInfoRowText"
                 android:id="@+id/price_usd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -74,7 +77,7 @@
                 android:layout_width="1dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
-                android:background="@android:color/darker_gray"
+                android:background="@color/colorSecondary"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/symbol" />

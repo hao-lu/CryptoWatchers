@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.robinhood.spark.SparkAdapter
@@ -35,7 +36,6 @@ class ChartFragment : Fragment() {
         val disposable = observable.subscribe(
                 { history ->
                     spark_view.adapter = CoinHistoryAdapter(history)
-
                     // Turn off progress bar and show chart fragment
                     activity.findViewById<ProgressBar>(R.id.chart_progress_bar).visibility = ProgressBar.GONE
                     activity.findViewById<FrameLayout>(R.id.chart_container).visibility = FrameLayout.VISIBLE
@@ -76,7 +76,11 @@ class ChartFragment : Fragment() {
                     })
 
                 },
-                { e-> Log.d(TAG, "Error: " + e.message) },
+                {
+                    e-> Log.d(TAG, "Error: " + e.message)
+                    activity.findViewById<ProgressBar>(R.id.chart_progress_bar).visibility = ProgressBar.GONE
+                    activity.findViewById<TextView>(R.id.no_data_available).visibility = TextView.VISIBLE
+                },
                 { Log.d(TAG, "onComplete") }
         )
 
