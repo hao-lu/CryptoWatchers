@@ -5,13 +5,17 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CoinMarketCapApi {
 
     // Using Call<List<Coin>> rather than Call<CryptoResponse> because API is returning a JSONArray rather than JSONObject
     @GET("v1/ticker/")
-    fun getTickerLimitObservable(@Query("limit") limit: String): Observable<List<Coin>>
+    fun getTickerLimitObservable(@Query("limit") limit: String): Observable<MutableList<Coin>>
+
+    @GET("v1/ticker/{coin}")
+    fun getSpecificTickerLimitObservable(@Path("coin") coin: String): Observable<MutableList<Coin>>
 
     companion object Factory {
         fun create(): CoinMarketCapApi {

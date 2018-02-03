@@ -13,20 +13,20 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_cryptos.*
+import kotlinx.android.synthetic.main.fragment_coin_list.*
 import android.support.v7.widget.RecyclerView
 
-class CoinListFragment : Fragment() {
+class TopCoinsFragment : Fragment() {
 
-    private val TAG = "CoinListFragment"
-    private var mAdapter: CoinMarketCapAdapter = CoinMarketCapAdapter(emptyList())
+    private val TAG = "TopCoinsFragment"
+    private var mAdapter: CoinMarketCapAdapter = CoinMarketCapAdapter(mutableListOf())
 
-    private val mObservable: Observable<List<Coin>> = CoinMarketCapApi.create()
+    private val mObservable: Observable<MutableList<Coin>> = CoinMarketCapApi.create()
             .getTickerLimitObservable("25")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    private val mObserver = object : Observer<List<Coin>> {
+    private val mObserver = object : Observer<MutableList<Coin>> {
         override fun onComplete() {
             Log.d(TAG, "onComplete")
             if (swipe_refresh.isRefreshing)
@@ -37,9 +37,9 @@ class CoinListFragment : Fragment() {
             Log.d(TAG, e.message)
         }
 
-        override fun onNext(coins: List<Coin>) {
+        override fun onNext(coins: MutableList<Coin>) {
             // Update the data in the adapter
-            mAdapter.mCryptos = coins
+            mAdapter.mCoins = coins
             mAdapter.notifyDataSetChanged()
         }
 
@@ -47,13 +47,13 @@ class CoinListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): CoinListFragment {
-            return CoinListFragment()
+        fun newInstance(): TopCoinsFragment {
+            return TopCoinsFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_cryptos, container,false)
+        return inflater?.inflate(R.layout.fragment_coin_list, container,false)
     }
 
     // Accessing too soon onCreateView

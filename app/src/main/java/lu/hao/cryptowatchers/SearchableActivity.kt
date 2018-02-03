@@ -17,12 +17,12 @@ import android.support.v7.widget.DividerItemDecoration
 class SearchableActivity : AppCompatActivity() {
 
     private val TAG = "SearchableActivity"
-    private var mCryptocurrencies: List<Coin>? = null
+    private var mCryptocurrencies: MutableList<Coin>? = null
 
-    private var mAdapter: SearchResultsAdapter = SearchResultsAdapter(emptyList())
+    private var mAdapter: SearchResultsAdapter = SearchResultsAdapter(mutableListOf())
 
 
-    private val mCoinMarketObservable: Observable<List<Coin>> = CoinMarketCapApi.create()
+    private val mCoinMarketObservable: Observable<MutableList<Coin>> = CoinMarketCapApi.create()
             .getTickerLimitObservable("0")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +67,7 @@ class SearchableActivity : AppCompatActivity() {
                         {
                             val results = search(it)
                             Log.d(TAG, "SIZE: " + results.size)
-                            mAdapter.mCryptos = results
+                            mAdapter.mCoins = results
                             mAdapter.notifyDataSetChanged()
                         },
                         { Log.d(TAG, it.message) },
@@ -92,9 +92,9 @@ class SearchableActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    private fun search(s: String): List<Coin> {
-        if (s == "") return emptyList()
+    private fun search(s: String): MutableList<Coin> {
+        if (s == "") return mutableListOf()
          return mCryptocurrencies!!.filter { it.name.toLowerCase().startsWith(s.toLowerCase())
-                 || it.symbol.toLowerCase().startsWith(s.toLowerCase()) }
+                 || it.symbol.toLowerCase().startsWith(s.toLowerCase()) } as MutableList<Coin>
     }
 }

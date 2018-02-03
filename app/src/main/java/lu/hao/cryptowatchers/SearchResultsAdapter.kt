@@ -8,7 +8,7 @@ import android.databinding.ViewDataBinding
 import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 
-class SearchResultsAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
+class SearchResultsAdapter(var mCoins: MutableList<Coin>) : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
 
     private val TAG = "SearchResultsAdapter"
 
@@ -31,11 +31,11 @@ class SearchResultsAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<Sear
 
     // Replace the contents of the view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.setVariable(BR.crypto, mCryptos[position])
+        holder.binding.setVariable(BR.crypto, mCoins[position])
         val context = holder.itemView.context
         holder.itemView.setOnClickListener( {
             val intent = Intent(context, CoinDetailsActivity::class.java)
-            intent.putExtra("Coin", mCryptos[position])
+            intent.putExtra("Coin", mCoins[position])
             context.startActivity(intent)
         } )
         holder.binding.executePendingBindings()
@@ -43,7 +43,7 @@ class SearchResultsAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<Sear
 
     // Return the size of dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
-        return mCryptos.size
+        return mCoins.size
     }
 
 }

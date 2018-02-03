@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.widget.TextView
 
-class CoinMarketCapAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
+class CoinMarketCapAdapter(var mCoins: MutableList<Coin>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
 
     private val TAG = "CoinMarketCapAdapter"
 
@@ -34,17 +34,17 @@ class CoinMarketCapAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<Coin
 
     // Replace the contents of the view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.setVariable(BR.crypto, mCryptos[position])
+        holder.binding.setVariable(BR.crypto, mCoins[position])
         val context = holder.itemView.context
 
         // Change the text color of percent based on positive or negative
-        changePercentChangeColor(R.id.percent_change_1h, context, mCryptos[position].percentChange1h, holder)
-        changePercentChangeColor(R.id.percent_change_24h, context, mCryptos[position].percentChange24h, holder)
-        changePercentChangeColor(R.id.percent_change_7d, context, mCryptos[position].percentChange7d, holder)
+        changePercentChangeColor(R.id.percent_change_1h, context, mCoins[position].percentChange1h, holder)
+        changePercentChangeColor(R.id.percent_change_24h, context, mCoins[position].percentChange24h, holder)
+        changePercentChangeColor(R.id.percent_change_7d, context, mCoins[position].percentChange7d, holder)
 
         holder.itemView.setOnClickListener( {
             val intent = Intent(context, CoinDetailsActivity::class.java)
-            intent.putExtra("Coin", mCryptos[position])
+            intent.putExtra("Coin", mCoins[position])
             context.startActivity(intent)
         } )
 
@@ -53,8 +53,9 @@ class CoinMarketCapAdapter(var mCryptos: List<Coin>) : RecyclerView.Adapter<Coin
 
     // Return the size of dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
-        return mCryptos.size
+        return mCoins.size
     }
+
 
     private fun changePercentChangeColor(id: Int, context: Context, percent: Double, holder: ViewHolder) {
         val percentage = holder.itemView.findViewById<TextView>(id) as TextView
