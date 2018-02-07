@@ -1,4 +1,4 @@
-#CryptoWatchers
+# CryptoWatchers
 
 Simple cryptocurrency tracker
 
@@ -6,7 +6,8 @@ Simple cryptocurrency tracker
 
 
 
-##API
+## API
+
 [CoinMarketCap](https://coinmarketcap.com/api/)
 
 [CoinCap](https://github.com/CoinCapDev/CoinCap.io)
