@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,10 @@ import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.widget.TextView
+import lu.hao.cryptowatchers.BR
+import lu.hao.cryptowatchers.view.activity.CoinDetailsActivity
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.model.data.Coin
 
 class CoinMarketCapAdapter(var mCoins: MutableList<Coin>) : RecyclerView.Adapter<CoinMarketCapAdapter.ViewHolder>() {
 

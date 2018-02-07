@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.adapter
 
 import android.databinding.BindingAdapter
 import android.widget.ImageView

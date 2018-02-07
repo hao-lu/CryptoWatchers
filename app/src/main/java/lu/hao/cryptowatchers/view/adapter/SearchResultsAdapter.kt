@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.adapter
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import android.databinding.ViewDataBinding
 import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
+import lu.hao.cryptowatchers.BR
+import lu.hao.cryptowatchers.view.activity.CoinDetailsActivity
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.model.data.Coin
 
 class SearchResultsAdapter(var mCoins: MutableList<Coin>) : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
 

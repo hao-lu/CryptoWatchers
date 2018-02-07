@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.fragment
 
 import android.graphics.Rect
 import android.support.v4.app.Fragment
@@ -8,49 +8,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 import android.support.v7.widget.RecyclerView
+import io.reactivex.disposables.CompositeDisposable
+import lu.hao.cryptowatchers.view.adapter.CoinMarketCapAdapter
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.viewmodel.TopCoinsViewModel
 
 class TopCoinsFragment : Fragment() {
 
     private val TAG = "TopCoinsFragment"
     private var mAdapter: CoinMarketCapAdapter = CoinMarketCapAdapter(mutableListOf())
-
-    private val mObservable: Observable<MutableList<Coin>> = CoinMarketCapApi.create()
-            .getTickerLimitObservable("25")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-
-    private val mObserver = object : Observer<MutableList<Coin>> {
-        override fun onComplete() {
-            Log.d(TAG, "onComplete")
-            if (swipe_refresh.isRefreshing)
-                swipe_refresh.isRefreshing = false
-        }
-
-        override fun onError(e: Throwable) {
-            Log.d(TAG, e.message)
-        }
-
-        override fun onNext(coins: MutableList<Coin>) {
-            // Update the data in the adapter
-            mAdapter.mCoins = coins
-            mAdapter.notifyDataSetChanged()
-        }
-
-        override fun onSubscribe(d: Disposable) {}
-    }
-
-    companion object {
-        fun newInstance(): TopCoinsFragment {
-            return TopCoinsFragment()
-        }
-    }
+    private val mViewModel = TopCoinsViewModel()
+    private val mCompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_coin_list, container,false)
@@ -61,7 +31,7 @@ class TopCoinsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         swipe_refresh.setOnRefreshListener {
-            mObservable.subscribe(mObserver)
+            getCoins()
         }
 
         recycler_view.layoutManager = LinearLayoutManager(activity)
@@ -73,7 +43,28 @@ class TopCoinsFragment : Fragment() {
 
         // API call
         swipe_refresh.isRefreshing = true
-        mObservable.subscribe(mObserver)
+        getCoins()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mCompositeDisposable.clear()
+    }
+
+    private fun getCoins() {
+        mCompositeDisposable.
+                add(mViewModel.getTopCoins()
+                        .subscribe(
+                {
+                    mAdapter.mCoins = it
+                    mAdapter.notifyDataSetChanged()
+                },
+                { Log.d(TAG, it.message) },
+                {
+                    Log.d(TAG, "onComplete")
+                    if (swipe_refresh.isRefreshing) swipe_refresh.isRefreshing = false
+                }
+        ))
     }
 
     inner class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {

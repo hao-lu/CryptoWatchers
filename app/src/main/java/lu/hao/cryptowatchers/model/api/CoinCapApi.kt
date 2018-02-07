@@ -1,6 +1,7 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.model.api
 
 import io.reactivex.Observable
+import lu.hao.cryptowatchers.model.data.CoinHistory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

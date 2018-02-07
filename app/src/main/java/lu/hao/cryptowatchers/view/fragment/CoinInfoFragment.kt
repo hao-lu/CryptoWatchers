@@ -1,13 +1,15 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.fragment
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import lu.hao.cryptowatchers.BR
+import lu.hao.cryptowatchers.R
 import lu.hao.cryptowatchers.databinding.FragmentCoinInfoBinding
+import lu.hao.cryptowatchers.model.data.Coin
 
 class CoinInfoFragment : Fragment() {
 

@@ -1,12 +1,13 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.view.adapter.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,13 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-//        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                    .beginTransaction()
-//                    .add(R.id.activity_base_content, TopCoinsFragment.newInstance(), "coinListFragment")
-//                    .commit()
-//        }
 
         container.adapter = SectionsPagerAdapter(supportFragmentManager)
         tab_layout.setupWithViewPager(container)

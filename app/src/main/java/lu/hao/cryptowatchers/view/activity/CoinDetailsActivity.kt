@@ -1,16 +1,19 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.activity
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.activity_coin_details.*
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.model.data.Coin
+import lu.hao.cryptowatchers.view.fragment.ChartFragment
+import lu.hao.cryptowatchers.view.fragment.CoinInfoFragment
 
 class CoinDetailsActivity : AppCompatActivity() {
 
@@ -102,7 +105,6 @@ class CoinDetailsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-
             // Unfavorite
             if (mSharedPreferences.contains(coin.id)) {
                 item.setIcon(R.drawable.ic_unfavorite_24dp)
@@ -118,8 +120,6 @@ class CoinDetailsActivity : AppCompatActivity() {
                     putBoolean(coin.id, true)
                     apply()
                 }
-                Log.d(TAG, "ADDED")
-                Log.d(TAG, "${mSharedPreferences.getBoolean(coin.id, false)}")
             }
 
             return true

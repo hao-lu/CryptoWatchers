@@ -1,9 +1,11 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.os.Bundle
+import lu.hao.cryptowatchers.view.fragment.StarredCoinsFragment
+import lu.hao.cryptowatchers.view.fragment.TopCoinsFragment
 
 class SectionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 

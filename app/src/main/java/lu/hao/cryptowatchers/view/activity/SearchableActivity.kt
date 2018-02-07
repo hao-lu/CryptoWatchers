@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +13,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import android.support.v7.widget.DividerItemDecoration
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.model.data.Coin
+import lu.hao.cryptowatchers.model.api.CoinMarketCapApi
+import lu.hao.cryptowatchers.view.adapter.SearchResultsAdapter
 
 class SearchableActivity : AppCompatActivity() {
 

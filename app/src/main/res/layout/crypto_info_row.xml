@@ -7,7 +7,7 @@
 
         <variable
             name="crypto"
-            type="lu.hao.cryptowatchers.Coin" />
+            type="lu.hao.cryptowatchers.model.data.Coin" />
     </data>
 
     <LinearLayout

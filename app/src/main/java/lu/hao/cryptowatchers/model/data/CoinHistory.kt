@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.model.data
 
 import com.google.gson.annotations.SerializedName
 

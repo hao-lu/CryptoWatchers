@@ -1,4 +1,4 @@
-package lu.hao.cryptowatchers
+package lu.hao.cryptowatchers.view.fragment
 
 import android.support.v4.app.Fragment
 import android.os.Bundle
@@ -12,9 +12,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import com.robinhood.spark.SparkAdapter
 import com.robinhood.spark.SparkView
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_chart.*
+import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.model.data.Coin
+import lu.hao.cryptowatchers.model.api.CoinCapApi
+import lu.hao.cryptowatchers.view.adapter.CoinHistoryAdapter
+import lu.hao.cryptowatchers.viewmodel.ChartViewModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,6 +27,8 @@ import java.util.*
 class ChartFragment : Fragment() {
 
     private val TAG = "ChartFragment"
+    private val mViewModel = ChartViewModel()
+    private val mCompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater?,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -78,8 +85,11 @@ class ChartFragment : Fragment() {
                 },
                 {
                     e-> Log.d(TAG, "Error: " + e.message)
-                    activity.findViewById<ProgressBar>(R.id.chart_progress_bar).visibility = ProgressBar.GONE
-                    activity.findViewById<TextView>(R.id.no_data_available).visibility = TextView.VISIBLE
+                    if (e.message == "Null is not a valid element") {
+                        // May need to check the view is still in view
+                        activity.findViewById<ProgressBar>(R.id.chart_progress_bar).visibility = ProgressBar.GONE
+                        activity.findViewById<TextView>(R.id.no_data_available).visibility = TextView.VISIBLE
+                    }
                 },
                 { Log.d(TAG, "onComplete") }
         )
@@ -87,28 +97,8 @@ class ChartFragment : Fragment() {
         return rootView
     }
 
-    private class CoinHistoryAdapter(history: CoinHistory) : SparkAdapter() {
-        private var mData = mutableListOf<Pair<Float, Float>>()
-        private val TAG = "CoinHistoryAdapter"
-
-        init {
-            for (i in 0 until history.price!!.size) {
-                val p = Pair(history.price!![i][0], history.price!![i][1])
-                mData.add(p)
-            }
-        }
-
-        override fun getCount(): Int {
-            return mData.size
-        }
-
-        override fun getItem(index: Int): Any {
-            return mData[index]
-        }
-
-        override fun getY(index: Int): Float {
-            return mData[index].second
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mCompositeDisposable.clear()
     }
-
 }
