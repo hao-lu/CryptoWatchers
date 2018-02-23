@@ -4,7 +4,7 @@ import android.databinding.BindingAdapter
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 
-private val BASE_URL = "https://files.coinmarketcap.com/static/img/coins/32x32/"
+private val BASE_URL = "https://coincap.io/images/coins/"
 
 @BindingAdapter("bind:imageUrl")
 fun loadImage(imageView: ImageView, url: String) {
