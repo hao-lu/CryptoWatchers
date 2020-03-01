@@ -13,6 +13,8 @@ import android.support.v7.widget.RecyclerView
 import io.reactivex.disposables.CompositeDisposable
 import lu.hao.cryptowatchers.view.adapter.CoinMarketCapAdapter
 import lu.hao.cryptowatchers.R
+import lu.hao.cryptowatchers.model.data.Coin
+import lu.hao.cryptowatchers.model.data.Data
 import lu.hao.cryptowatchers.viewmodel.TopCoinsViewModel
 
 class TopCoinsFragment : Fragment() {
@@ -56,15 +58,37 @@ class TopCoinsFragment : Fragment() {
                 add(mViewModel.getTopCoins()
                         .subscribe(
                 {
-                    mAdapter.mCoins = it
+                    mAdapter.mCoins = translateToOldCoin(it.data)
                     mAdapter.notifyDataSetChanged()
                 },
-                { Log.d(TAG, it.message) },
+                {
+                    Log.d(TAG, it.message)
+                },
                 {
                     Log.d(TAG, "onComplete")
                     if (swipe_refresh.isRefreshing) swipe_refresh.isRefreshing = false
                 }
         ))
+    }
+
+    private fun translateToOldCoin(list: List<Data>): MutableList<Coin> {
+        val newList = mutableListOf<Coin>()
+        list.forEach {  data ->
+            newList.add(Coin(
+                data.id,
+                data.name,
+                data.symbol,
+                data.quote.USD.price,
+                data.quote.USD.volume_24h,
+                data.quote.USD.market_cap,
+                data.total_supply,
+                data.max_supply,
+                data.quote.USD.percent_change_1h,
+                data.quote.USD.percent_change_24h,
+                data.quote.USD.percent_change_7d
+            ))
+        }
+        return newList
     }
 
     inner class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {

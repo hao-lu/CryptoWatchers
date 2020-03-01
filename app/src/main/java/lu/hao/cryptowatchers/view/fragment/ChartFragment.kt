@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_chart.*
 import lu.hao.cryptowatchers.R
 import lu.hao.cryptowatchers.model.data.Coin
 import lu.hao.cryptowatchers.model.api.CoinCapApi
+import lu.hao.cryptowatchers.model.data.CoinHistory
 import lu.hao.cryptowatchers.view.adapter.CoinHistoryAdapter
 import lu.hao.cryptowatchers.viewmodel.ChartViewModel
 import java.text.DecimalFormat
@@ -36,13 +37,13 @@ class ChartFragment : Fragment() {
         val period = arguments.getString("period")
         val coin = arguments.getParcelable<Coin>("coin")
 
-        val observable = CoinCapApi.create().getHistoryObservable(period, coin.symbol)
+        val observable = CoinCapApi.create().getHistoryObservable("bitcoin", "d1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
         val disposable = observable.subscribe(
                 { history ->
-                    spark_view.adapter = CoinHistoryAdapter(history)
+                    spark_view.adapter = CoinHistoryAdapter(history.data)
                     // Turn off progress bar and show chart fragment
                     activity.findViewById<ProgressBar>(R.id.chart_progress_bar).visibility = ProgressBar.GONE
                     activity.findViewById<FrameLayout>(R.id.chart_container).visibility = FrameLayout.VISIBLE

@@ -24,7 +24,7 @@ class CoinMarketCapAdapter(var mCoins: MutableList<Coin>) : RecyclerView.Adapter
 
         init {
             // Bind row view
-            binding = DataBindingUtil.bind(v)
+            binding = DataBindingUtil.bind(v)!!
         }
     }
 

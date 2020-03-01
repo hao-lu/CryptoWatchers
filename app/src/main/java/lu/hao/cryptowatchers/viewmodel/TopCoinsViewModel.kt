@@ -6,13 +6,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import lu.hao.cryptowatchers.model.data.Coin
 import lu.hao.cryptowatchers.model.api.CoinMarketCapApi
+import lu.hao.cryptowatchers.model.data.LatestListingResponse
 
 class TopCoinsViewModel : ViewModel {
 
     private val TAG = "TopCoinsViewModel"
 
     private val mObservable = CoinMarketCapApi.create()
-            .getTickerLimitObservable("25")
+            .getLatest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -24,7 +25,7 @@ class TopCoinsViewModel : ViewModel {
 
     override fun onDestroy() {}
 
-    fun getTopCoins(): Observable<MutableList<Coin>> {
+    fun getTopCoins(): Observable<LatestListingResponse> {
         return mObservable
     }
 }

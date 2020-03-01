@@ -16,6 +16,7 @@ import android.support.v7.widget.DividerItemDecoration
 import lu.hao.cryptowatchers.R
 import lu.hao.cryptowatchers.model.data.Coin
 import lu.hao.cryptowatchers.model.api.CoinMarketCapApi
+import lu.hao.cryptowatchers.model.data.MapResponse
 import lu.hao.cryptowatchers.view.adapter.SearchResultsAdapter
 
 class SearchableActivity : AppCompatActivity() {
@@ -25,9 +26,8 @@ class SearchableActivity : AppCompatActivity() {
 
     private var mAdapter: SearchResultsAdapter = SearchResultsAdapter(mutableListOf())
 
-
-    private val mCoinMarketObservable: Observable<MutableList<Coin>> = CoinMarketCapApi.create()
-            .getTickerLimitObservable("0")
+    private val mCoinMarketObservable: Observable<MapResponse> = CoinMarketCapApi.create()
+            .getCrytocurrenyMap()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
@@ -59,8 +59,12 @@ class SearchableActivity : AppCompatActivity() {
 //        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         mCoinMarketObservable.subscribe(
-                { mCryptocurrencies = it }, //onNext
-                { Log.d(TAG, it.message)}, //onError
+                {
+                    mCryptocurrencies = translateToNewApiResponse(it)
+                }, //onNext
+                {
+                    Log.d(TAG, it.message)
+                }, //onError
                 { Log.d(TAG, "onComplete") } // onComplete
         )
 
@@ -100,5 +104,25 @@ class SearchableActivity : AppCompatActivity() {
         if (s == "") return mutableListOf()
          return mCryptocurrencies!!.filter { it.name.toLowerCase().startsWith(s.toLowerCase())
                  || it.symbol.toLowerCase().startsWith(s.toLowerCase()) } as MutableList<Coin>
+    }
+
+    private fun translateToNewApiResponse(mapResponse: MapResponse): MutableList<Coin> {
+        val list = mutableListOf<Coin>()
+        mapResponse.data.forEach { data ->
+            list.add(Coin(
+                data.id,
+                data.name,
+                data.symbol,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ))
+        }
+        return list
     }
 }
