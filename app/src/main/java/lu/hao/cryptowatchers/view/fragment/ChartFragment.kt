@@ -1,8 +1,8 @@
 package lu.hao.cryptowatchers.view.fragment
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater

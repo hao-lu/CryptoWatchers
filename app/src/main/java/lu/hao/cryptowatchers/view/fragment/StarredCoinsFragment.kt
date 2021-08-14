@@ -2,9 +2,9 @@ package lu.hao.cryptowatchers.view.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +39,8 @@ class StarredCoinsFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler_view.layoutManager = LinearLayoutManager(activity)
+        recycler_view.layoutManager =
+            LinearLayoutManager(activity)
         recycler_view.adapter = mAdapter
         recycler_view.addItemDecoration(SpacingItemDecoration())
 

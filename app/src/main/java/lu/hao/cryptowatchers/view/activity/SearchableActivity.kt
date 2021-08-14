@@ -1,8 +1,8 @@
 package lu.hao.cryptowatchers.view.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
-import android.support.v7.widget.DividerItemDecoration
+import androidx.recyclerview.widget.DividerItemDecoration
 import lu.hao.cryptowatchers.R
 import lu.hao.cryptowatchers.model.data.Coin
 import lu.hao.cryptowatchers.model.api.CoinMarketCapApi
@@ -87,10 +87,14 @@ class SearchableActivity : AppCompatActivity() {
         // Set onClickListener for clear button
         clear_button.setOnClickListener({ search_edit_text.text.clear() })
 
-        search_results_list.layoutManager = LinearLayoutManager(this)
+        search_results_list.layoutManager =
+            LinearLayoutManager(this)
         search_results_list.adapter = mAdapter
-        val dividerItemDecoration = DividerItemDecoration(search_results_list.context,
-                LinearLayoutManager(this).orientation)
+        val dividerItemDecoration =
+            DividerItemDecoration(
+                search_results_list.context,
+                LinearLayoutManager(this).orientation
+            )
         search_results_list.addItemDecoration(dividerItemDecoration)
 
     }

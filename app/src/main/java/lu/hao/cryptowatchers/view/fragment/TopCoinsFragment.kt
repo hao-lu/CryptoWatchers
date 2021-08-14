@@ -1,15 +1,15 @@
 package lu.hao.cryptowatchers.view.fragment
 
 import android.graphics.Rect
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_coin_list.*
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.disposables.CompositeDisposable
 import lu.hao.cryptowatchers.view.adapter.CoinMarketCapAdapter
 import lu.hao.cryptowatchers.R
@@ -36,7 +36,8 @@ class TopCoinsFragment : Fragment() {
             getCoins()
         }
 
-        recycler_view.layoutManager = LinearLayoutManager(activity)
+        recycler_view.layoutManager =
+            LinearLayoutManager(activity)
         recycler_view.adapter = mAdapter
 
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing)
@@ -94,7 +95,7 @@ class TopCoinsFragment : Fragment() {
     inner class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
 
         override fun getItemOffsets(outRect: Rect, view: View,
-                           parent: RecyclerView, state: RecyclerView.State) {
+                                    parent: RecyclerView, state: RecyclerView.State) {
             outRect.left = space
             outRect.right = space
             outRect.bottom = space

@@ -1,11 +1,11 @@
 package lu.hao.cryptowatchers.view.adapter
 
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.databinding.ViewDataBinding
-import android.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import lu.hao.cryptowatchers.BR
 import lu.hao.cryptowatchers.view.activity.CoinDetailsActivity
