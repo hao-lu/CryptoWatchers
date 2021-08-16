@@ -63,7 +63,7 @@ class SearchableActivity : AppCompatActivity() {
                     mCryptocurrencies = translateToNewApiResponse(it)
                 }, //onNext
                 {
-                    Log.d(TAG, it.message)
+                    Log.d(TAG, it.message!!)
                 }, //onError
                 { Log.d(TAG, "onComplete") } // onComplete
         )
@@ -78,7 +78,7 @@ class SearchableActivity : AppCompatActivity() {
                             mAdapter.mCoins = results
                             mAdapter.notifyDataSetChanged()
                         },
-                        { Log.d(TAG, it.message) },
+                        { Log.d(TAG, it.message!!) },
                         { Log.d(TAG, "onComplete") }
                 )
 

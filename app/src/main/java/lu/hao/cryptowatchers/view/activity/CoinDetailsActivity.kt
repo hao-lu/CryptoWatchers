@@ -33,7 +33,7 @@ class CoinDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        coin = intent.extras.getParcelable<Coin>("Coin")
+        coin = intent.extras?.getParcelable<Coin>("Coin")!!
         supportActionBar?.title = "${coin.symbol} | ${coin.name} "
 
         tab_layout.addTab(tab_layout.newTab().setText("24H"))

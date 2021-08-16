@@ -24,12 +24,16 @@ class TopCoinsFragment : Fragment() {
     private val mViewModel = TopCoinsViewModel()
     private val mCompositeDisposable = CompositeDisposable()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater?.inflate(R.layout.fragment_coin_list, container,false)
     }
 
     // Accessing too soon onCreateView
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         swipe_refresh.setOnRefreshListener {
@@ -63,7 +67,7 @@ class TopCoinsFragment : Fragment() {
                     mAdapter.notifyDataSetChanged()
                 },
                 {
-                    Log.d(TAG, it.message)
+                    Log.d(TAG, it.message!!)
                 },
                 {
                     Log.d(TAG, "onComplete")

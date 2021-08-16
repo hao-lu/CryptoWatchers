@@ -30,13 +30,18 @@ class StarredCoinsFragment : Fragment() {
     private lateinit var mSharedPreferences: SharedPreferences
     private lateinit var mPrefListener: SharedPreferences.OnSharedPreferenceChangeListener
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mSharedPreferences = activity.getSharedPreferences(getString(R.string.preferences_file_key), Context.MODE_PRIVATE)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        mSharedPreferences =
+            activity?.getSharedPreferences(getString(R.string.preferences_file_key), Context.MODE_PRIVATE)!!
         return inflater?.inflate(R.layout.fragment_coin_list, container,false)
     }
 
     // Accessing too soon onCreateView
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         recycler_view.layoutManager =
@@ -96,7 +101,7 @@ class StarredCoinsFragment : Fragment() {
                         {
                             mAdapter.notifyDataSetChanged()
                         },
-                        { Log.d(TAG, it.message) },
+                        { Log.d(TAG, it.message!!) },
                         {
                             Log.d(TAG, "onComplete")
                             if (swipe_refresh.isRefreshing) swipe_refresh.isRefreshing = false
@@ -113,7 +118,7 @@ class StarredCoinsFragment : Fragment() {
                                 {
                                     mAdapter.mCoins.add(it[0])
                                 },
-                                { Log.d(TAG, it.message) },
+                                { Log.d(TAG, it.message!!) },
                                 { Log.d(TAG, "onComplete")
                                     if (swipe_refresh.isRefreshing)
                                         swipe_refresh.isRefreshing = false}))

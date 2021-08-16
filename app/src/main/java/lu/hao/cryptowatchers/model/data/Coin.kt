@@ -29,9 +29,9 @@ data class Coin(val id: String,
     fun formatTotalSupply(supply: Double): String = if (supply == 0.0) formatSupply(this.availableSupply) else formatSupply(supply)
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
+            source.readString()!!,
+            source.readString()!!,
+            source.readString()!!,
             source.readDouble(),
             source.readDouble(),
             source.readDouble(),

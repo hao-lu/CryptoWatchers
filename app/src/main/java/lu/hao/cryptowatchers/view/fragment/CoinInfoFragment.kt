@@ -15,7 +15,7 @@ class CoinInfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val coin = arguments.getParcelable<Coin>("coin")
+        val coin = arguments?.getParcelable<Coin>("coin")
         val binding = DataBindingUtil.inflate<FragmentCoinInfoBinding>(inflater, R.layout.fragment_coin_info, container, false)
         binding.setVariable(BR.coin, coin)
         binding.executePendingBindings()

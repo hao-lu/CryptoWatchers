@@ -10,7 +10,7 @@ private val BASE_URL = "https://static.coincap.io/assets/icons/%s@2x.png"
 fun loadImage(imageView: ImageView, url: String) {
     if (!url.equals("")) {
         val link = String.format(BASE_URL, url.toLowerCase())
-        Picasso.with(imageView.context).load(link).into(imageView)
+        Picasso.get().load(link).into(imageView)
     }
 }
 
