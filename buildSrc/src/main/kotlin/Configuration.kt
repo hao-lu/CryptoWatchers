@@ -3,6 +3,7 @@ object Versions {
     const val COMPILE_SDK = 30
     const val TARGET_SDK = 30
 
+    const val COMPOSE = "1.0.1"
     const val KOTLIN = "1.5.21"
 }
 
@@ -22,9 +23,9 @@ object Dependencies {
 
 object AndroidX {
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.1"
-    const val COMPOSE_UI = "androidx.compose.ui:ui:1.1.0"
-    const val COMPOSE_MATERIAL = "androidx.compose.material:material:1.1.0"
-    const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling:1.1.0"
+    const val COMPOSE_UI = "androidx.compose.ui:ui:${Versions.COMPOSE}"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE}"
+    const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
     const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:1.3.1"
     const val CONSTRAINTLAYOUT = "androidx.constraintlayout:constraintlayout:2.1.0"
     const val CORE = "androidx.core:core:1.6.0"

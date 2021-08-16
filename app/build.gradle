@@ -22,6 +22,12 @@ android {
     dataBinding {
         enabled = true
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.COMPOSE
+    }
 }
 
 dependencies {
@@ -33,6 +39,10 @@ dependencies {
 
 //    // AndroidX
     implementation AndroidX.APPCOMPAT
+    implementation AndroidX.COMPOSE_UI
+    implementation AndroidX.COMPOSE_MATERIAL
+    implementation AndroidX.COMPOSE_UI_TOOLING
+    implementation AndroidX.COMPOSE_ACTIVITY
     implementation AndroidX.CONSTRAINTLAYOUT
     implementation AndroidX.CORE
     implementation AndroidX.CORE_KTX
