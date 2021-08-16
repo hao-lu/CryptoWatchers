@@ -22,9 +22,13 @@ object Dependencies {
 
 object AndroidX {
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.1"
+    const val COMPOSE_UI = "androidx.compose.ui:ui:1.1.0"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:1.1.0"
+    const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling:1.1.0"
+    const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:1.3.1"
+    const val CONSTRAINTLAYOUT = "androidx.constraintlayout:constraintlayout:2.1.0"
     const val CORE = "androidx.core:core:1.6.0"
     const val CORE_KTX = "androidx.core:core-ktx:1.1.0"
-    const val CONSTRAINTLAYOUT = "androidx.constraintlayout:constraintlayout:2.1.0"
     const val LEGACY_SUPPORT_V4 = "androidx.legacy:legacy-support-v4:1.0.0"
     const val LIFECYCLE_EXTENSION = "androidx.lifecycle:lifecycle-extensions:2.3.1"
     const val MATERIAL = "com.google.android.material:material:1.4.0"
